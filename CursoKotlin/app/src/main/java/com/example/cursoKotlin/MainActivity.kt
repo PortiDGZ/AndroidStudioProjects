@@ -2,6 +2,8 @@ package com.example.cursoKotlin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -12,7 +14,22 @@ class MainActivity : AppCompatActivity() {
 
         contador.text = "0"
 
-        
+        botonsumar.setOnClickListener(object : View.OnClickListener){
+
+                fun onClick(v: View?) {
+
+                }
+        }
+
+        botonrestar.setOnClickListener(object : View.OnClickListener){
+            fun onClick(v: View?) {
+
+            }
+        }
 
     }
+}
+
+private fun Button.setOnClickListener(onClickListener: View.OnClickListener, function: () -> Unit) {
+    TODO("Not yet implemented")
 }
