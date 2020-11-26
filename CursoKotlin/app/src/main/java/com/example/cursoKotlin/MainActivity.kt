@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -28,8 +29,4 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-}
-
-private fun Button.setOnClickListener(onClickListener: View.OnClickListener, function: () -> Unit) {
-    TODO("Not yet implemented")
 }
