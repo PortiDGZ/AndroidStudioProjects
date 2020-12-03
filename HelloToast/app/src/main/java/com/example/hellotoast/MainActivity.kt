@@ -9,13 +9,11 @@ import android.widget.Toast
 class MainActivity : AppCompatActivity() {
 
     var mCount = 0
-    private lateinit var mShowCount: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        mShowCount = findViewById(R.id.show_count)
 
     }
 
@@ -31,6 +29,8 @@ class MainActivity : AppCompatActivity() {
     val count = findViewById<TextView>(R.id.show_count)
 
         count.text = mCount.toString()
+
+        
 
     }
 }
