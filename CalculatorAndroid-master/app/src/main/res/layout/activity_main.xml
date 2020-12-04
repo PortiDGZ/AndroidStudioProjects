@@ -42,7 +42,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Cambio Base"
-                    android:onClick="sendMessage"
+                    android:onClick="baseChange"
                     />
 
             </LinearLayout>

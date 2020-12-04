@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">BinaryCalc</string>
+
+    <string name="result">0</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Button strings -->
+    <string name="zero">0</string>
+    <string name="one">1</string>
+    <string name="clear">C</string>
+    <string name="ac">AC</string>
+    <string name="and">AND</string>
+    <string name="or">OR</string>
+    <string name="not">NOT</string>
+    <string name="xor">XOR</string>
+    <string name="nand">NAND</string>
+    <string name="nor">NOR</string>
+    <string name="nxor">NXOR</string>
+    <string name="add">+</string>
+    <string name="sub">-</string>
+    <string name="mult">*</string>
+    <string name="mod">MOD</string>
+    <string name="equal">=</string>
+
+</resources>

@@ -1,5 +1,6 @@
 package com.mapasgoogle.javi.calculator
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -128,16 +129,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     /**
-     * Abre una nueva actividad para el cambio de base
+     * Convierte a binario el resultado
      */
 
-    fun sendMessage(view: View){
+    fun baseChange(view: View){
 
-    val resultToBin = stringResult!!.toInt()
+        val intent = Intent(this, BinarayCalc::class.java)
 
-        val binResult = Integer.toBinaryString(resultToBin)
+        startActivity(intent)
 
-        textViewBox!!.text = binResult.toString()
 
     }
 
