@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Calculadora</string>
+    <string name="equal" />
+    <string name="nxor" />
+    <string name="nor" />
+    <string name="nand" />
+    <string name="mod" />
+    <string name="mult" />
+    <string name="xor" />
+    <string name="not" />
+    <string name="sub" />
+    <string name="add" />
+    <string name="or" />
+    <string name="and" />
+    <string name="ac" />
+    <string name="clear" />
+    <string name="one" />
+    <string name="zero" />
+    <string name="result" />
+    <string name="action_settings" />
 </resources>

@@ -132,9 +132,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
      * Convierte a binario el resultado
      */
 
-    fun baseChange(view: View){
+    fun baseChange(view: View) {
 
-        val intent = Intent(this, BinarayCalc::class.java)
+        val intent = Intent(this, BinaryCalc::class.java)
 
         startActivity(intent)
 
