@@ -25,8 +25,8 @@ open class BinaryCalc : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        displayBinary = findViewById<TextView>(R.id.result_binary)
-        displayDecimal = findViewById<TextView>(R.id.result_decimal)
+        displayBinary = findViewById(R.id.result_binary)
+        displayDecimal = findViewById(R.id.result_decimal)
         currentValue = 0
         operand = 0
         mOperation = BinOperation.NO_OP
