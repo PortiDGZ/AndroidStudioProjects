@@ -66,60 +66,60 @@ open class BinaryCalc : AppCompatActivity() {
         intercambio()
     }
 
-    fun computeOr(view: View?) {
+    fun calcularOr(view: View?) {
         mOperation = BinOperation.OR_OP
         (mostrarDecimal!!.text.toString() + " | ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
-    fun computeNot(view: View?) {
+    fun calcularNot(view: View?) {
         valorActual = invertir(valorActual)
         actualizarVista()
     }
 
-    fun computeXor(view: View?) {
+    fun calcularXor(view: View?) {
         mOperation = BinOperation.XOR_OP
         (mostrarDecimal!!.text.toString() + " ^ ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
-    fun computeNand(view: View?) {
+    fun calcularNand(view: View?) {
         mOperation = BinOperation.NAND_OP
         (mostrarDecimal!!.text.toString() + " &! ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
-    fun computeNor(view: View?) {
+    fun calcularNor(view: View?) {
         mOperation = BinOperation.NOR_OP
         (mostrarDecimal!!.text.toString() + " |! ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
-    fun computeNxor(view: View?) {
+    fun calcularXnor(view: View?) {
         mOperation = BinOperation.NXOR_OP
         (mostrarDecimal!!.text.toString() + " ^! ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
-    fun computeAdd(view: View?) {
+    fun calcularSuma(view: View?) {
         mOperation = BinOperation.ADD_OP
         (mostrarDecimal!!.text.toString() + " + ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
-    fun computeSub(view: View?) {
+    fun calcularResta(view: View?) {
         mOperation = BinOperation.SUB_OP
         (mostrarDecimal!!.text.toString() + " - ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
-    fun computeMod(view: View?) {
+    fun calcularModulo(view: View?) {
         mOperation = BinOperation.MOD_OP
         (mostrarDecimal!!.text.toString() + " mod ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
-    fun computeMult(view: View?) {
+    fun calcularMulti(view: View?) {
         mOperation = BinOperation.MULT_OP
         "${mostrarDecimal!!.text} * ".also { mostrarDecimal?.text = it }
         intercambio()
