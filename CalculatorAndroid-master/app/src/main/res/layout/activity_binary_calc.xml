@@ -39,32 +39,32 @@
         <Button
             android:layout_row="0"
             android:layout_column="0"
-            android:onClick="onEnterZero"
+            android:onClick="pulsarCero"
             android:text="@string/_0" />
 
         <Button
             android:layout_row="0"
             android:layout_column="1"
-            android:onClick="onEnterOne"
+            android:onClick="pulsarUno"
             android:text="@string/_1" />
 
         <Button
             android:layout_row="0"
             android:layout_column="2"
-            android:onClick="onClear"
+            android:onClick="pulsarBorrar"
             android:text="@string/c" />
 
         <Button
             android:layout_width="145dp"
             android:layout_row="0"
             android:layout_column="3"
-            android:onClick="onAllClear"
+            android:onClick="pulsarBorrarTodo"
             android:text="@string/del" />
 
         <Button
             android:layout_row="1"
             android:layout_column="0"
-            android:onClick="computeAnd"
+            android:onClick="calcularAnd"
             android:text="@string/and" />
 
         <Button

@@ -35,32 +35,32 @@ open class BinaryCalc : AppCompatActivity() {
 
 
 
-    //// KEYPAD CALLBACKS ////
-    fun onEnterZero(view: View) {
+    //// Llamadas al teclado ////
+    fun pulsarCero(view: View) {
         valorActual = valorActual shl 1
         actualizarVista()
     }
 
-    fun onEnterOne(view: View?) {
+    fun pulsarUno(view: View?) {
         valorActual = (valorActual shl 1) + 1
         actualizarVista()
     }
 
-    fun onClear(view: View?) {
+    fun pulsarBorrar(view: View?) {
         valorActual = 0
         hayOperando = false
         entrada = null
         actualizarVista()
     }
 
-    fun onAllClear(view: View?) {
+    fun pulsarBorrarTodo(view: View?) {
         valorActual = 0
         hayOperando = false
         entrada = null
         actualizarVista()
     }
 
-    fun computeAnd(view: View?) {
+    fun calcularAnd(view: View?) {
         mOperation = BinOperation.AND_OP
         (mostrarDecimal!!.text.toString() + " & ").also { mostrarDecimal?.text = it }
         intercambio()
