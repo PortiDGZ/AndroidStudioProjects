@@ -43,27 +43,27 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         // Inicializo el objeto que llevara toda la operacion
         operation = Operation(0, 0, null)
-        textViewBox = findViewById<View>(R.id.tvBox) as TextView
-        buttonDel = findViewById<View>(R.id.btDel) as Button
-        buttonAC = findViewById<View>(R.id.btAC) as Button
-        buttonMM = findViewById<View>(R.id.btMM) as Button
-        buttonPorc = findViewById<View>(R.id.btPorc) as Button
-        buttonDiv = findViewById<View>(R.id.btDiv) as Button
-        buttonPro = findViewById<View>(R.id.btPro) as Button
-        buttonRes = findViewById<View>(R.id.btRes) as Button
-        buttonSum = findViewById<View>(R.id.btSum) as Button
-        button0 = findViewById<View>(R.id.bt0) as Button
-        button1 = findViewById<View>(R.id.bt1) as Button
-        button2 = findViewById<View>(R.id.bt2) as Button
-        button3 = findViewById<View>(R.id.bt3) as Button
-        button4 = findViewById<View>(R.id.bt4) as Button
-        button5 = findViewById<View>(R.id.bt5) as Button
-        button6 = findViewById<View>(R.id.bt6) as Button
-        button7 = findViewById<View>(R.id.bt7) as Button
-        button8 = findViewById<View>(R.id.bt8) as Button
-        button9 = findViewById<View>(R.id.bt9) as Button
-        buttonDec = findViewById<View>(R.id.btDec) as Button
-        buttonEqu = findViewById<View>(R.id.btEqu) as Button
+        textViewBox = findViewById(R.id.tvBox)
+        buttonDel = findViewById(R.id.btDel)
+        buttonAC = findViewById(R.id.btAC)
+        buttonMM = findViewById(R.id.btMM)
+        buttonPorc = findViewById(R.id.btPorc)
+        buttonDiv = findViewById(R.id.btDiv)
+        buttonPro = findViewById(R.id.btPro)
+        buttonRes = findViewById(R.id.btRes)
+        buttonSum = findViewById(R.id.btSum)
+        button0 = findViewById(R.id.bt0)
+        button1 = findViewById(R.id.bt1)
+        button2 = findViewById(R.id.bt2)
+        button3 = findViewById(R.id.bt3)
+        button4 = findViewById(R.id.bt4)
+        button5 = findViewById(R.id.bt5)
+        button6 = findViewById(R.id.bt6)
+        button7 = findViewById(R.id.bt7)
+        button8 = findViewById(R.id.bt8)
+        button9 = findViewById(R.id.bt9)
+        buttonDec = findViewById(R.id.btDec)
+        buttonEqu = findViewById(R.id.btEqu)
         buttonAC!!.setOnClickListener(this)
         buttonDel!!.setOnClickListener(this)
         buttonMM!!.setOnClickListener(this)
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.bt1 -> writeNumberOperation("1")
             R.id.bt0 -> writeNumberOperation("0")
             R.id.btDec -> {
-                if (stringResult == "") stringResult = "0"
+                if (stringResult == "") stringResult = "0" //Si el resultado está vacío colocar 0
                 writeNumberOperation(",")
             }
             R.id.btDiv -> configureOperation("div", buttonDiv)
@@ -128,18 +128,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         textViewBox!!.text = stringResult
     }
 
-    /**
-     * Convierte a binario el resultado
-     */
-
-    fun baseChange(view: View) {
-
-        val intent = Intent(this, BinaryCalc::class.java)
-
-        startActivity(intent)
 
 
-    }
 
     /**
      * Establece la operacion segun el estado de la calculadora
@@ -174,14 +164,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 "res" -> stringResult = operation!!.operationDeduct(operation!!.numberOne, operation!!.numberTwo).toString()
                 "prod" -> stringResult = operation!!.operationProduct(operation!!.numberOne, operation!!.numberTwo).toString()
                 "div" -> stringResult = operation!!.operationDivision(operation!!.numberOne, operation!!.numberTwo).toString()
-                "porc" -> stringResult = operation!!.operationPorcentage(operation!!.numberOne, operation!!.numberTwo).toString()
+                "porc" -> stringResult = operation!!.operationPercentage(operation!!.numberOne, operation!!.numberTwo).toString()
             }
             if (stringResult!!.substring(stringResult!!.length - 1, stringResult!!.length) == "0" && stringResult!!.substring(stringResult!!.length - 2, stringResult!!.length - 1) == ".") {
                 stringResult = stringResult!!.replace(".0", "")
             }
         }
         if (stringResult!!.indexOf(".") > -1 && stringResult!!.length > 1) {
-            deleteCeros()
+            deleteZeros()
         }
         num1 = stringResult
         operation!!.numberOne = num1!!.toDouble()
@@ -198,7 +188,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     /**
      * Elimina ceros que puede dar el double a partir de la coma
      */
-    private fun deleteCeros() {
+    private fun deleteZeros() {
         var i = stringResult!!.length - 1
         while (i > stringResult!!.indexOf(".")) {
             val n = stringResult!![i].toString()
@@ -324,5 +314,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 operation!!.numberOne = stringResult!!.toDouble()
             }
         }
+    }
+    /**
+     * Abre la calculadora en binario
+     */
+
+    fun baseChange(view: View) {
+
+        val intent = Intent(this, BinaryCalc::class.java)
+
+        startActivity(intent)
+
+
     }
 }

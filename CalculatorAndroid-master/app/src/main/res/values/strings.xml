@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Calculadora</string>
     <string name="action_settings" />
-    <string name="_0">0</string>
+    <string name="__0">0</string>
     <string name="_1">1</string>
     <string name="c">C</string>
     <string name="del">DEL</string>
@@ -22,4 +22,5 @@
     <string name="decimal">Decimal</string>
     <string name="binario">Binario</string>
     <string name="ir">Ir</string>
+    <string name="_0">0</string>
 </resources>
