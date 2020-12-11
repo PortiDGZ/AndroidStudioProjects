@@ -157,7 +157,6 @@ open class BinaryCalc : AppCompatActivity() {
                 operaciones.OperacionNand -> valorActual = operando and valorActual.inv()
                 operaciones.OperacionNor -> valorActual = operando or valorActual.inv()
                 operaciones.OperacionNxor -> valorActual = operando xor valorActual.inv()
-                operaciones.OperacionNot -> valorActual = invertir(valorActual)
                 operaciones.suma -> valorActual += operando
                 operaciones.resta -> valorActual = operando - valorActual
                 operaciones.multiplicacion -> valorActual *= operando
