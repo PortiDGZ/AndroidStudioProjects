@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/calc_g"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".menuSeleccion"></activity>
         <activity
             android:name=".BinaryCalc"
             android:parentActivityName=".MainActivity">

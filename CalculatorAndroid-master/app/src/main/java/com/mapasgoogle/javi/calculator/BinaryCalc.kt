@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.textclassifier.TextClassifier.NO_OP
+import android.widget.Button
 import android.widget.TextView
 
 open class BinaryCalc : AppCompatActivity() {
@@ -15,27 +16,27 @@ open class BinaryCalc : AppCompatActivity() {
      es decir, la interrogación al final te permite introducir nulos como valores sin provocar un NullPointerException
      */
 
-    private enum class BinOperation {
-        AND_OP, OR_OP, XOR_OP, NAND_OP, NOR_OP, NXOR_OP, NO_OP, ADD_OP, SUB_OP, MOD_OP, MULT_OP
-    } //Enumaración para almacenar las distintas operaciones
+    private enum class operaciones {
+        OperacionAnd, OperacionOr, OperacionXor, OperacionNand, OperacionNor, OperacionNxor, OperacionNot, inicializador, suma, resta, modulo, multiplicacion, division, shiftLeft, shiftRight
+    } //Enumeración para almacenar las distintas operaciones
 
-    private var mOperation: BinOperation? = null
+    private var tipoOperacion: operaciones? = null
     private var mostrarBinario: TextView? = null
     private var mostrarDecimal: TextView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_binary_calc)
-        mostrarBinario = findViewById(R.id.result_binary)
-        mostrarDecimal = findViewById(R.id.result_decimal)
+        mostrarBinario = findViewById(R.id.textoBinario)
+        mostrarDecimal = findViewById(R.id.textoDecimal)
         valorActual = 0
         operando = 0
-        mOperation = BinOperation.NO_OP
+        tipoOperacion = operaciones.inicializador
         hayOperando = false
     }
 
 
 
-    //// Llamadas al teclado ////
+    //Llamadas al teclado
     fun pulsarCero(view: View) {
         valorActual = valorActual shl 1
         actualizarVista()
@@ -61,86 +62,108 @@ open class BinaryCalc : AppCompatActivity() {
     }
 
     fun calcularAnd(view: View?) {
-        mOperation = BinOperation.AND_OP
+        tipoOperacion = operaciones.OperacionAnd
         (mostrarDecimal!!.text.toString() + " & ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
     fun calcularOr(view: View?) {
-        mOperation = BinOperation.OR_OP
+        tipoOperacion = operaciones.OperacionOr
         (mostrarDecimal!!.text.toString() + " | ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
     fun calcularNot(view: View?) {
-        valorActual = invertir(valorActual)
+        tipoOperacion = operaciones.OperacionNot
+        (mostrarDecimal!!.text.toString()+ " ! ").also { mostrarDecimal?.text = it }
         actualizarVista()
     }
 
     fun calcularXor(view: View?) {
-        mOperation = BinOperation.XOR_OP
+        tipoOperacion = operaciones.OperacionXor
         (mostrarDecimal!!.text.toString() + " ^ ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
     fun calcularNand(view: View?) {
-        mOperation = BinOperation.NAND_OP
+        tipoOperacion = operaciones.OperacionNand
         (mostrarDecimal!!.text.toString() + " &! ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
     fun calcularNor(view: View?) {
-        mOperation = BinOperation.NOR_OP
+        tipoOperacion = operaciones.OperacionNor
         (mostrarDecimal!!.text.toString() + " |! ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
     fun calcularXnor(view: View?) {
-        mOperation = BinOperation.NXOR_OP
+        tipoOperacion = operaciones.OperacionNxor
         (mostrarDecimal!!.text.toString() + " ^! ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
     fun calcularSuma(view: View?) {
-        mOperation = BinOperation.ADD_OP
+        tipoOperacion = operaciones.suma
         (mostrarDecimal!!.text.toString() + " + ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
     fun calcularResta(view: View?) {
-        mOperation = BinOperation.SUB_OP
+        tipoOperacion = operaciones.resta
         (mostrarDecimal!!.text.toString() + " - ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
     fun calcularModulo(view: View?) {
-        mOperation = BinOperation.MOD_OP
+        tipoOperacion = operaciones.modulo
         (mostrarDecimal!!.text.toString() + " mod ").also { mostrarDecimal?.text = it }
         intercambio()
     }
 
     fun calcularMulti(view: View?) {
-        mOperation = BinOperation.MULT_OP
+        tipoOperacion = operaciones.multiplicacion
         "${mostrarDecimal!!.text} * ".also { mostrarDecimal?.text = it }
         intercambio()
     }
 
+    fun calcularDiv(view: View?){
+
+        tipoOperacion = operaciones.division
+        "${mostrarDecimal!!.text} / ".also { mostrarDecimal?.text = it }
+        intercambio()
+
+    }
+
+    fun shiftLeft(view: View?){
+        tipoOperacion = operaciones.shiftLeft
+    }
+
+    fun shiftRight(view: View?){
+
+        tipoOperacion = operaciones.shiftRight
+
+    }
+
     fun calcular(view: View?) {
         if (hayOperando) {
-            when (mOperation) {
-                BinOperation.AND_OP -> valorActual = valorActual and operando
-                BinOperation.OR_OP -> valorActual = valorActual or operando
-                BinOperation.XOR_OP -> valorActual = valorActual xor operando
-                BinOperation.NAND_OP -> valorActual = operando and invertir(valorActual)
-                BinOperation.NOR_OP -> valorActual = operando or invertir(valorActual)
-                BinOperation.NXOR_OP -> valorActual = operando xor invertir(valorActual)
-                BinOperation.ADD_OP -> valorActual += operando
-                BinOperation.SUB_OP -> valorActual = operando - valorActual
-                BinOperation.MULT_OP -> valorActual *= operando
-                BinOperation.MOD_OP -> valorActual = operando % valorActual
-                else -> if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            when (tipoOperacion) {
+                operaciones.OperacionAnd -> valorActual = valorActual and operando
+                operaciones.OperacionOr -> valorActual = valorActual or operando
+                operaciones.OperacionXor -> valorActual = valorActual xor operando
+                operaciones.OperacionNand -> valorActual = operando and valorActual.inv()
+                operaciones.OperacionNor -> valorActual = operando or valorActual.inv()
+                operaciones.OperacionNxor -> valorActual = operando xor valorActual.inv()
+                operaciones.OperacionNot -> valorActual = operando.inv()
+                operaciones.shiftLeft -> valorActual = valorActual.shl(1)
+                operaciones.shiftRight -> valorActual = valorActual.shr(1)
+                operaciones.suma -> valorActual += operando
+                operaciones.resta -> valorActual = operando - valorActual
+                operaciones.multiplicacion -> valorActual *= operando
+                operaciones.modulo -> valorActual = operando % valorActual
+                operaciones.division -> valorActual = operando / valorActual
+                else ->
                     NO_OP
-                }
 
             }
             mostrarBinario?.text = Integer.toBinaryString(valorActual)
@@ -152,23 +175,19 @@ open class BinaryCalc : AppCompatActivity() {
     }
 
     //// Métodos privados ////
-    //Muestra los números conforme se van escribiendo
+    //Muestra los números conforme se van escribiendo, es decir, actualiza los TextView
     private fun actualizarVista() {
         mostrarBinario?.text = Integer.toBinaryString(valorActual)
         if (!hayOperando) {
             mostrarDecimal?.text = """$valorActual"""
         } else "${entrada}$valorActual".also { mostrarDecimal?.text = it }
     }
-    // Muestra los números decimales
+    // Guarda el primer set de números en operando para setear a cero valorActual y poder operar con ambos
     private fun intercambio() {
         operando = valorActual
         valorActual = 0
         hayOperando = true
         entrada = mostrarDecimal?.text.toString()
     }
-    // Invierte el número
-    private fun invertir(x: Int): Int {
-        val k = Integer.toBinaryString(x).length
-        return x.inv() and (1 shl k) - 1
-    }
+
 }

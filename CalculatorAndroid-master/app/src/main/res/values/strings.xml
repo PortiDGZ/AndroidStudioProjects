@@ -23,4 +23,8 @@
     <string name="binario">Binario</string>
     <string name="ir">Ir</string>
     <string name="_0">0</string>
+    <string name="shl2"><![CDATA[<<]]></string>
+    <string name="shr2"><![CDATA[>>]]></string>
+    <string name="shl"><![CDATA[<<]]></string>
+    <string name="shr"><![CDATA[>>]]></string>
 </resources>
