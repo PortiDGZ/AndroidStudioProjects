@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="div" type="id" />
-    <item name="textoBinario" type="id" />
-    <item name="textoDecimal" type="id" />
-    <item name="shr" type="id" />
-    <item name="shl" type="id" />
-</resources>
