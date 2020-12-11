@@ -74,8 +74,7 @@ open class BinaryCalc : AppCompatActivity() {
     }
 
     fun calcularNot(view: View?) {
-        tipoOperacion = operaciones.OperacionNot
-        (mostrarDecimal!!.text.toString()+ " ! ").also { mostrarDecimal?.text = it }
+        valorActual = invertir(valorActual)
         actualizarVista()
     }
 
@@ -136,12 +135,16 @@ open class BinaryCalc : AppCompatActivity() {
     }
 
     fun shiftLeft(view: View?){
-        tipoOperacion = operaciones.shiftLeft
+        valorActual = valorActual.shl(1)
+
+        actualizarVista()
     }
 
     fun shiftRight(view: View?){
 
-        tipoOperacion = operaciones.shiftRight
+        valorActual = valorActual.shr(1)
+
+        actualizarVista()
 
     }
 
@@ -154,9 +157,7 @@ open class BinaryCalc : AppCompatActivity() {
                 operaciones.OperacionNand -> valorActual = operando and valorActual.inv()
                 operaciones.OperacionNor -> valorActual = operando or valorActual.inv()
                 operaciones.OperacionNxor -> valorActual = operando xor valorActual.inv()
-                operaciones.OperacionNot -> valorActual = operando.inv()
-                operaciones.shiftLeft -> valorActual = valorActual.shl(1)
-                operaciones.shiftRight -> valorActual = valorActual.shr(1)
+                operaciones.OperacionNot -> valorActual = invertir(valorActual)
                 operaciones.suma -> valorActual += operando
                 operaciones.resta -> valorActual = operando - valorActual
                 operaciones.multiplicacion -> valorActual *= operando
@@ -188,6 +189,14 @@ open class BinaryCalc : AppCompatActivity() {
         valorActual = 0
         hayOperando = true
         entrada = mostrarDecimal?.text.toString()
+    }
+
+    fun invertir(x: Int): Int{
+
+        val k = Integer.toBinaryString(x).length
+
+        return x.inv() and (1 shl k) -1;
+
     }
 
 }
