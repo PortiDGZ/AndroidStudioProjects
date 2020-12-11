@@ -74,7 +74,7 @@ open class BinaryCalc : AppCompatActivity() {
     }
 
     fun calcularNot(view: View?) {
-        valorActual = invertir(valorActual)
+        valorActual = valorActual.inv()
         actualizarVista()
     }
 
@@ -188,14 +188,6 @@ open class BinaryCalc : AppCompatActivity() {
         valorActual = 0
         hayOperando = true
         entrada = mostrarDecimal?.text.toString()
-    }
-
-    fun invertir(x: Int): Int{
-
-        val k = Integer.toBinaryString(x).length
-
-        return x.inv() and (1 shl k) -1;
-
     }
 
 }
