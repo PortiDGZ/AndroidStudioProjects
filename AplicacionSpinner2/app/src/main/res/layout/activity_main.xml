@@ -57,14 +57,19 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/campoEtapa"
+        android:id="@+id/menuDrop"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/etapaEd"
-        app:endIconMode="dropdown_menu"
-        app:startIconDrawable="@drawable/ic_school_24px"
-        app:startIconContentDescription="@string/etapaEd">
+        app:startIconDrawable="@drawable/ic_school_24px">
 
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
