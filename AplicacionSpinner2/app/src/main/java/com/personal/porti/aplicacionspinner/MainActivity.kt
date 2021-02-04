@@ -12,8 +12,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val items = arrayOf("Primaria", "Secundaria", "Bachillerato", "Ciclos Formativos")
-        val adapter = ArrayAdapter(requireContext(Context!!), R.layout.list_item, items)
-        (R.id.menuDrop as? AutoCompleteTextView)?.setAdapter(adapter)
+        val dMenu = findViewById<AutoCompleteTextView>(R.id.menuDrop)
+
+        ArrayAdapter.createFromResource(
+                this,
+                R.array.etapaEducativa,
+                android.R.layout.list_content
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
+            // Apply the adapter to the spinner
+            dMenu.setAdapter(adapter)
+        }
     }
 }

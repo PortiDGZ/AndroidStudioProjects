@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources android:layout_height="10dp"
+    android:layout_width="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <string-array android:name="etapaEd" name="etapaEducativa">
+        <item name="prim">Primaria</item>
+        <item name="sec">Secundaria</item>
+        <item name="bch">Bachillerato</item>
+        <item name="fp">Formación Profesionak</item>
+    </string-array>
+</resources>
