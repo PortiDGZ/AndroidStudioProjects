@@ -6,6 +6,6 @@
         <item name="prim">Primaria</item>
         <item name="sec">Secundaria</item>
         <item name="bch">Bachillerato</item>
-        <item name="fp">Formación Profesionak</item>
+        <item name="fp">Formación Profesional</item>
     </string-array>
 </resources>
