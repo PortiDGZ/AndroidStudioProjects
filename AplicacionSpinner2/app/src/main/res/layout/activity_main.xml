@@ -17,6 +17,7 @@
         app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/campoNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -24,7 +25,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/campoApellidos"
+        android:id="@+id/apellidos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/Apellidos"
@@ -33,6 +34,7 @@
         app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/campoApellidos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -40,7 +42,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/campoEdad"
+        android:id="@+id/edad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/Edad"
@@ -49,6 +51,7 @@
         app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/campoEdad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
@@ -62,8 +65,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/etapaEd"
-        app:startIconDrawable="@drawable/ic_school_24px">
-
+        app:startIconDrawable="@drawable/ic_school_24px"
+        android:enabled="false">
 
         <AutoCompleteTextView
             android:id="@+id/menuReal"
@@ -73,4 +76,24 @@
             />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/Email"
+        app:startIconDrawable="@drawable/ic_alternate_email_24px"
+        app:startIconContentDescription="@string/Email"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/campoEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>

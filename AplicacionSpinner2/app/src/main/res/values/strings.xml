@@ -4,4 +4,5 @@
     <string name="Apellidos"> Apellidos</string>
     <string name="Edad"> Edad</string>
     <string name="etapaEd"> Etapa Educativa </string>
+    <string name="Email">Email</string>
 </resources>
