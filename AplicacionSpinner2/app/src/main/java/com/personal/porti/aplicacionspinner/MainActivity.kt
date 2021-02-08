@@ -21,6 +21,12 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum
+import com.nightonke.boommenu.BoomButtons.HamButton
+import com.nightonke.boommenu.BoomButtons.SimpleCircleButton
+import com.nightonke.boommenu.BoomMenuButton
+import com.nightonke.boommenu.ButtonEnum
+import com.nightonke.boommenu.Piece.PiecePlaceEnum
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,26 +42,39 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
             != PackageManager.PERMISSION_GRANTED) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
             ) {
 
             } else {
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                   42
+                    42
                 )
             }
         } else {
-            // Permission has already been granted
         }
-        val botonCarga = findViewById<Button>(R.id.CARGAR);
+        val botonCarga = findViewById<Button>(R.id.CARGAR)
+        var boomMenu = findViewById<BoomMenuButton>(R.id.bmb)
+        boomMenu.buttonEnum = ButtonEnum.Ham
+        boomMenu.piecePlaceEnum = PiecePlaceEnum.DOT_1
+        boomMenu.buttonPlaceEnum = ButtonPlaceEnum.HAM_1
+        for (i in 0 until boomMenu.buttonPlaceEnum.buttonNumber()) {
+            boomMenu.addBuilder(
+                HamButton.Builder()
+                    .normalImageRes(R.drawable.ic_account_circle_24px)
+                    .normalText("Seleccionar foto")
+            )
+        }
         campoNombre = findViewById(R.id.campoNombre)
         campoApellidos = findViewById(R.id.campoApellidos)
         campoEdad = findViewById(R.id.campoEdad)
