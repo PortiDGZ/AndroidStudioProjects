@@ -7,4 +7,11 @@
     <string name="Email">Email</string>
     <string name="selected_date_is">La fecha seleccionada es :</string>
     <string name="select_date">Selecciona una fecha</string>
+    <string name="action_1">Modificar Datos</string>
+    <string name="action_2">Confirmar Datos</string>
+    <string name="content_description_media">perfil</string>
+    <string name="cargar">Elegir imagen</string>
+    <string name="grant_permission">Conceder permiso</string>
+    <string name="yes">Conceder</string>
+    <string name="no">Denegar</string>
 </resources>

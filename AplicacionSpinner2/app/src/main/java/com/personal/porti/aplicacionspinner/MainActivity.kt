@@ -1,14 +1,22 @@
 package com.personal.porti.aplicacionspinner
 
+import android.Manifest
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
+import android.database.Cursor
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import com.github.florent37.runtimepermission.kotlin.askPermission
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -17,6 +25,7 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+    private val RESULT_LOAD_IMAGE = 1
     lateinit var campoNombre: TextInputEditText
     lateinit var campoApellidos: TextInputEditText
     lateinit var campoEdad: TextInputEditText
@@ -25,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val botonCarga = findViewById<Button>(R.id.CARGAR);
         campoNombre = findViewById(R.id.campoNombre)
         campoApellidos = findViewById(R.id.campoApellidos)
         campoEdad = findViewById(R.id.campoEdad)
@@ -129,7 +139,13 @@ class MainActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
-
+        botonCarga.setOnClickListener {
+            val i = Intent(
+                Intent.ACTION_PICK,
+            )
+            i.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+            startActivityForResult(i, RESULT_LOAD_IMAGE)
+        }
     }
 
     fun validarCampos() {
@@ -152,9 +168,28 @@ class MainActivity : AppCompatActivity() {
         dob.timeInMillis = date
         val hoy = Calendar.getInstance()
         var edad = hoy[Calendar.YEAR] - dob[Calendar.YEAR]
-        if (hoy[Calendar.DAY_OF_MONTH] < dob[Calendar.DAY_OF_MONTH]) {
+        if (hoy[Calendar.DAY_OF_MONTH] < dob[Calendar.DAY_OF_MONTH] && hoy[Calendar.MONTH] < dob[Calendar.MONTH]) {
             edad--
         }
         return edad
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            val selectedImage: Uri? = data.data
+            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+            val cursor: Cursor? = selectedImage?.let {
+                contentResolver.query(
+                    it,
+                    filePathColumn, null, null, null
+                )
+            }
+            cursor?.moveToFirst()
+            val columnIndex: Int? = cursor?.getColumnIndex(filePathColumn[0])
+            val picturePath: String = (columnIndex?.let { cursor.getString(it) } ?: cursor?.close()) as String
+            val imageView = findViewById<View>(R.id.imgView) as ImageView
+            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
+        }
     }
 }
