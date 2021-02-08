@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         for (i in 0 until boomMenu.buttonPlaceEnum.buttonNumber()) {
             boomMenu.addBuilder(
                 HamButton.Builder()
-                    .normalImageRes(R.drawable.ic_account_circle_24px)
+                    .normalImageRes(R.drawable.ic_face_24px)
                     .normalText("Seleccionar foto")
             )
         }
