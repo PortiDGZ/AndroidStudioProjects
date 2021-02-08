@@ -14,4 +14,5 @@
     <string name="grant_permission">Conceder permiso</string>
     <string name="yes">Conceder</string>
     <string name="no">Denegar</string>
+    <string name="permission_required_text">Se requiere el permiso de:</string>
 </resources>
