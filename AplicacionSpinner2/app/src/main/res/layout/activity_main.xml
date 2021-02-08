@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -96,4 +95,16 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
+    <!--button to open the material design date picker dialog-->
+
+    <Button
+        android:id="@+id/pick_date_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp"
+        android:text="@string/select_date"
+        android:textSize="18sp"
+        app:icon="@drawable/ic_today_24px" />
+
+</LinearLayout>

@@ -1,25 +1,29 @@
 package com.personal.porti.aplicacionspinner
 
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import java.security.AccessController.getContext
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
     lateinit var campoNombre: TextInputEditText
-    lateinit var campoApellidos : TextInputEditText
-    lateinit var campoEdad : TextInputEditText
-    lateinit var campoEmail : TextInputEditText
-    lateinit var parentMenu : TextInputLayout
+    lateinit var campoApellidos: TextInputEditText
+    lateinit var campoEdad: TextInputEditText
+    lateinit var campoEmail: TextInputEditText
+    lateinit var parentMenu: TextInputLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,7 +35,20 @@ class MainActivity : AppCompatActivity() {
         val dMenu = findViewById<AutoCompleteTextView>(R.id.menuReal)
         parentMenu = findViewById(R.id.menuDrop)
         val type = arrayOf("Primaria", "Secundaria", "Bachillerato", "Formación Profesional")
+        val mPickDateButton = findViewById<Button>(R.id.pick_date_button)
+        val materialDateBuilder: MaterialDatePicker.Builder<*> = MaterialDatePicker.Builder.datePicker()
+        materialDateBuilder.setTitleText("SELECCIONA UNA FECHA")
+        materialDateBuilder.build()
+        mPickDateButton.setOnClickListener {
 
+            val c = Calendar.getInstance()
+            val mYear = c[Calendar.YEAR]
+            val mMonth = c[Calendar.MONTH]
+            val mDay = c[Calendar.DAY_OF_MONTH]
+            val dateDialog = DatePickerDialog(this, datePickerListener, mYear, mMonth, mDay)
+            dateDialog.datePicker.maxDate = Date().time
+            dateDialog.show()
+        }
         val adapter = ArrayAdapter(
                 this,
                 R.layout.dropdown_menu_popup_item,
@@ -43,9 +60,9 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
                 validarCampos()
-                if(campoEmail.text.toString().isEmpty()) {
+                if (campoEmail.text.toString().isEmpty()) {
                     campoEmail.error = "Introduce un email"
-                }else {
+                } else {
                     if (!campoEmail.text.toString().trim().matches(emailPattern)) {
                         campoEmail.error = "El email introducido es inválido"
                     } else {
@@ -55,6 +72,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
         campoNombre.addTextChangedListener(object : TextWatcher {
@@ -63,6 +81,7 @@ class MainActivity : AppCompatActivity() {
                                        before: Int, count: Int) {
                 validarCampos()
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -72,6 +91,7 @@ class MainActivity : AppCompatActivity() {
                                        before: Int, count: Int) {
                 validarCampos()
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -81,10 +101,11 @@ class MainActivity : AppCompatActivity() {
                                        before: Int, count: Int) {
                 validarCampos()
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        dMenu?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        dMenu?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
@@ -92,11 +113,12 @@ class MainActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
                 val intent = Intent(this@MainActivity, vistaFormulario::class.java).apply {
+                    Log.e("Entrada", "Confirmo")
 
                     putExtra("Nombre", campoNombre.text.toString())
                     putExtra("Apellidos", campoApellidos.text.toString())
                     putExtra("Edad", campoEdad.text.toString())
-                    putExtra("EtapaEd", type[position])
+                    putExtra("EtapaEd", type[position]).toString()
                     putExtra("Email", campoEmail.text.toString())
                 }
                 startActivity(intent)
@@ -104,12 +126,31 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        }
+    }
 
-    fun validarCampos(){
-        if (campoNombre.text.toString() != "" && campoApellidos.text.toString() != "" && campoEdad.text.toString() != "" && campoEmail.text.toString() != "" && campoEmail.error == null ){
+    fun validarCampos() {
+        if (campoNombre.text.toString() != "" && campoApellidos.text.toString() != "" && campoEdad.text.toString() != "" && campoEmail.text.toString() != "" && campoEmail.error == null) {
 
             parentMenu.isEnabled = true
         }
     }
+    private val datePickerListener = OnDateSetListener { _, year, month, day ->
+        val c: Calendar = Calendar.getInstance()
+        c.set(Calendar.YEAR, year)
+        c.set(Calendar.MONTH, month)
+        c.set(Calendar.DAY_OF_MONTH, day)
+        SimpleDateFormat("dd MMM YYYY").format(c.time)
+        campoEdad.setText(calcularEdad(c.timeInMillis).toString())
     }
+
+    private fun calcularEdad(date: Long): Int {
+        val dob = Calendar.getInstance() //dob = fecha de nacimiento
+        dob.timeInMillis = date
+        val hoy = Calendar.getInstance()
+        var edad = hoy[Calendar.YEAR] - dob[Calendar.YEAR]
+        if (hoy[Calendar.DAY_OF_MONTH] < dob[Calendar.DAY_OF_MONTH]) {
+            edad--
+        }
+        return edad
+    }
+}

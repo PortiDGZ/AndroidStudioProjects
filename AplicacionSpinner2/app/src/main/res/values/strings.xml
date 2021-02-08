@@ -5,4 +5,6 @@
     <string name="Edad"> Edad</string>
     <string name="etapaEd"> Etapa Educativa </string>
     <string name="Email">Email</string>
+    <string name="selected_date_is">La fecha seleccionada es :</string>
+    <string name="select_date">Selecciona una fecha</string>
 </resources>
