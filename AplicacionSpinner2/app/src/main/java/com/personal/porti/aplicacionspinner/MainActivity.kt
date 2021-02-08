@@ -1,7 +1,6 @@
 package com.personal.porti.aplicacionspinner
 
 import android.Manifest
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
@@ -13,7 +12,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.ActionBar
@@ -41,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED) {
-                
+
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)
