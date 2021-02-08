@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AplicacionSpinner</string>
+    <string name="app_name">Formulario de Alta</string>
     <string name="Nombre"> Nombre </string>
     <string name="Apellidos"> Apellidos</string>
     <string name="Edad"> Edad</string>

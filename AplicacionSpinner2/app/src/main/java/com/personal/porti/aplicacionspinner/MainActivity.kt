@@ -6,14 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.View
 import android.widget.*
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import java.security.AccessController.getContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,6 +37,9 @@ class MainActivity : AppCompatActivity() {
         val materialDateBuilder: MaterialDatePicker.Builder<*> = MaterialDatePicker.Builder.datePicker()
         materialDateBuilder.setTitleText("SELECCIONA UNA FECHA")
         materialDateBuilder.build()
+        supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar!!.setDisplayShowCustomEnabled(true)
+        supportActionBar!!.setCustomView(R.layout.custom_action_bar_layout)
         mPickDateButton.setOnClickListener {
 
             val c = Calendar.getInstance()
@@ -50,15 +51,18 @@ class MainActivity : AppCompatActivity() {
             dateDialog.show()
         }
         val adapter = ArrayAdapter(
-                this,
-                R.layout.dropdown_menu_popup_item,
-                type)
+            this,
+            R.layout.dropdown_menu_popup_item,
+            type,
+        )
         dMenu.setAdapter(adapter)
 
         campoEmail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
                 validarCampos()
                 if (campoEmail.text.toString().isEmpty()) {
                     campoEmail.error = "Introduce un email"
@@ -67,7 +71,11 @@ class MainActivity : AppCompatActivity() {
                         campoEmail.error = "El email introducido es inválido"
                     } else {
                         if (campoEmail.text.toString().trim().matches(emailPattern)) {
-                            Toast.makeText(applicationContext, "La dirección de correo es correcta", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                applicationContext,
+                                "La dirección de correo es correcta",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }
@@ -77,8 +85,10 @@ class MainActivity : AppCompatActivity() {
         })
         campoNombre.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
                 validarCampos()
             }
 
@@ -87,8 +97,10 @@ class MainActivity : AppCompatActivity() {
 
         campoApellidos.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
                 validarCampos()
             }
 
@@ -97,33 +109,25 @@ class MainActivity : AppCompatActivity() {
 
         campoEdad.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
                 validarCampos()
             }
 
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        dMenu?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
+        dMenu?.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+            val intent = Intent(this@MainActivity, vistaFormulario::class.java).apply {
+                putExtra("Nombre", campoNombre.text.toString())
+                putExtra("Apellidos", campoApellidos.text.toString())
+                putExtra("Edad", campoEdad.text.toString())
+                putExtra("EtapaEd", type[position]).toString()
+                putExtra("Email", campoEmail.text.toString())
             }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-                val intent = Intent(this@MainActivity, vistaFormulario::class.java).apply {
-                    Log.e("Entrada", "Confirmo")
-
-                    putExtra("Nombre", campoNombre.text.toString())
-                    putExtra("Apellidos", campoApellidos.text.toString())
-                    putExtra("Edad", campoEdad.text.toString())
-                    putExtra("EtapaEd", type[position]).toString()
-                    putExtra("Email", campoEmail.text.toString())
-                }
-                startActivity(intent)
-            }
-
+            startActivity(intent)
         }
 
     }

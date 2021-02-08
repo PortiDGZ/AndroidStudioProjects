@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AplicacionSpinner">
-        <activity android:name=".vistaFormulario"></activity>
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".vistaFormulario" />
+        <activity android:name=".MainActivity"
+            android:label="Formulario de ALta">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
