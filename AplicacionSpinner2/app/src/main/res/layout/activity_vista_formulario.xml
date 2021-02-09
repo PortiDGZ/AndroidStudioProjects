@@ -1,4 +1,4 @@
-<LinearLayout android:layout_width="wrap_content"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
@@ -17,9 +17,14 @@
 
         <!-- Media -->
         <ImageView
-            android:layout_width="match_parent"
+            android:id="@+id/imagen"
             android:layout_height="194dp"
-            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:rotation="-90"
+            android:scaleType="centerInside"
+            app:layout_constraintDimensionRatio="4:3"
             android:contentDescription="@string/content_description_media"
             />
 
@@ -31,6 +36,7 @@
 
             <!-- Title, secondary and supporting text -->
             <TextView
+                android:paddingTop="30dp"
                 android:id="@+id/nombreCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

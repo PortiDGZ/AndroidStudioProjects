@@ -6,13 +6,14 @@ import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -21,11 +22,12 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.nightonke.boommenu.BoomButtons.BoomButton
 import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum
 import com.nightonke.boommenu.BoomButtons.HamButton
-import com.nightonke.boommenu.BoomButtons.SimpleCircleButton
 import com.nightonke.boommenu.BoomMenuButton
 import com.nightonke.boommenu.ButtonEnum
+import com.nightonke.boommenu.OnBoomListener
 import com.nightonke.boommenu.Piece.PiecePlaceEnum
 import java.text.SimpleDateFormat
 import java.util.*
@@ -38,6 +40,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var campoEdad: TextInputEditText
     lateinit var campoEmail: TextInputEditText
     lateinit var parentMenu: TextInputLayout
+    lateinit var selectedImage: Uri
+    private lateinit var picturePath: String
+    lateinit var imageView: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,21 +55,18 @@ class MainActivity : AppCompatActivity() {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
                 )
             ) {
 
-            } else {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    42
-                )
-            }
+            } else ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA),
+                42
+            )
         } else {
         }
-        val botonCarga = findViewById<Button>(R.id.CARGAR)
-        var boomMenu = findViewById<BoomMenuButton>(R.id.bmb)
+        val boomMenu = findViewById<BoomMenuButton>(R.id.bmb)
         boomMenu.buttonEnum = ButtonEnum.Ham
         boomMenu.piecePlaceEnum = PiecePlaceEnum.DOT_1
         boomMenu.buttonPlaceEnum = ButtonPlaceEnum.HAM_1
@@ -73,15 +75,19 @@ class MainActivity : AppCompatActivity() {
                 HamButton.Builder()
                     .normalImageRes(R.drawable.ic_face_24px)
                     .normalText("Seleccionar foto")
+                    .normalColor(Color.BLUE)
+                    .normalTextColor(Color.WHITE)
             )
         }
         campoNombre = findViewById(R.id.campoNombre)
         campoApellidos = findViewById(R.id.campoApellidos)
         campoEdad = findViewById(R.id.campoEdad)
         campoEmail = findViewById(R.id.campoEmail)
+        imageView = findViewById(R.id.imgView)
         val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+".toRegex()
         val dMenu = findViewById<AutoCompleteTextView>(R.id.menuReal)
         parentMenu = findViewById(R.id.menuDrop)
+        picturePath = ""
         val type = arrayOf("Primaria", "Secundaria", "Bachillerato", "Formación Profesional")
         val mPickDateButton = findViewById<Button>(R.id.pick_date_button)
         val materialDateBuilder: MaterialDatePicker.Builder<*> = MaterialDatePicker.Builder.datePicker()
@@ -176,15 +182,38 @@ class MainActivity : AppCompatActivity() {
                 putExtra("Edad", campoEdad.text.toString())
                 putExtra("EtapaEd", type[position]).toString()
                 putExtra("Email", campoEmail.text.toString())
+                putExtra("imagen", picturePath)
             }
             startActivity(intent)
         }
-        botonCarga.setOnClickListener {
-            val i = Intent(
-                Intent.ACTION_PICK,
-            )
-            i.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-            startActivityForResult(i, RESULT_LOAD_IMAGE)
+        boomMenu.onBoomListener = object : OnBoomListener {
+            override fun onClicked(index: Int, boomButton: BoomButton) {
+                val i = Intent(
+                    Intent.ACTION_PICK,
+                )
+                i.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                startActivityForResult(i, RESULT_LOAD_IMAGE)
+            }
+
+            override fun onBackgroundClick() {
+
+            }
+
+            override fun onBoomWillHide() {
+
+            }
+
+            override fun onBoomDidHide() {
+
+            }
+
+            override fun onBoomWillShow() {
+
+            }
+
+            override fun onBoomDidShow() {
+
+            }
         }
     }
 
@@ -217,9 +246,9 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-            val selectedImage: Uri? = data.data
+            selectedImage = data.data!!
             val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-            val cursor: Cursor? = selectedImage?.let {
+            val cursor: Cursor? = selectedImage.let {
                 contentResolver.query(
                     it,
                     filePathColumn, null, null, null
@@ -227,8 +256,7 @@ class MainActivity : AppCompatActivity() {
             }
             cursor?.moveToFirst()
             val columnIndex: Int? = cursor?.getColumnIndex(filePathColumn[0])
-            val picturePath: String = (columnIndex?.let { cursor.getString(it) } ?: cursor?.close()) as String
-            val imageView = findViewById<View>(R.id.imgView) as ImageView
+            picturePath = (columnIndex?.let { cursor.getString(it) } ?: cursor?.close()) as String
             imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
         }
     }

@@ -7,128 +7,140 @@
     android:paddingRight="16dp"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/imgView"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:rotation="-90" />
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="371dp"
+        android:layout_height="696dp"
+        android:layout_margin="8dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/stroke_color"
+        app:strokeWidth="1dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/Nombre"
-        app:startIconDrawable="@drawable/ic_account_circle_24px"
-        app:startIconContentDescription="@string/Nombre"
-        app:endIconMode="clear_text">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/campoNombre"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/apellidos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/Apellidos"
-        app:startIconDrawable="@drawable/ic_account_circle_24px"
-        app:startIconContentDescription="@string/Apellidos"
-        app:endIconMode="clear_text">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/campoApellidos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/Edad"
-        app:startIconDrawable="@drawable/ic_cake_24px"
-        app:startIconContentDescription="@string/Edad"
-        app:endIconMode="clear_text">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/campoEdad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/menuDrop"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/etapaEd"
-        app:startIconDrawable="@drawable/ic_school_24px"
-        android:enabled="false">
-
-        <AutoCompleteTextView
-            android:id="@+id/menuReal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="none"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
+            <ImageView
+                android:id="@+id/imgView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:rotation="-90"
+                android:scaleType="centerInside"
+                app:layout_constraintDimensionRatio="4:3" />
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/Email"
-        app:startIconDrawable="@drawable/ic_alternate_email_24px"
-        app:startIconContentDescription="@string/Email"
-        app:errorEnabled="true">
+            <com.google.android.material.textfield.TextInputLayout
+                android:paddingTop="30dp"
+                android:id="@+id/textField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/Nombre"
+                app:endIconMode="clear_text"
+                app:startIconContentDescription="@string/Nombre"
+                app:startIconDrawable="@drawable/ic_account_circle_24px">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/campoEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/campoNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <!--button to open the material design date picker dialog-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/apellidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/Apellidos"
+                app:endIconMode="clear_text"
+                app:startIconContentDescription="@string/Apellidos"
+                app:startIconDrawable="@drawable/ic_account_circle_24px">
 
-    <Button
-        android:id="@+id/pick_date_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="32dp"
-        android:text="@string/select_date"
-        android:textSize="18sp"
-        app:icon="@drawable/ic_today_24px" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/campoApellidos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/CARGAR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="32dp"
-        android:text="@string/cargar"
-        android:textSize="18sp"
-        app:icon="@drawable/ic_today_24px" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.nightonke.boommenu.BoomMenuButton
-        android:id="@+id/bmb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/Edad"
+                app:endIconMode="clear_text"
+                app:startIconContentDescription="@string/Edad"
+                app:startIconDrawable="@drawable/ic_cake_24px">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/campoEdad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/menuDrop"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="@string/etapaEd"
+                app:startIconDrawable="@drawable/ic_school_24px">
+
+                <AutoCompleteTextView
+                    android:id="@+id/menuReal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/Email"
+                app:errorEnabled="true"
+                app:startIconContentDescription="@string/Email"
+                app:startIconDrawable="@drawable/ic_alternate_email_24px">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/campoEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!--button to open the material design date picker dialog-->
+
+            <Button
+                android:id="@+id/pick_date_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="32dp"
+                android:text="@string/select_date"
+                android:textSize="18sp"
+                app:icon="@drawable/ic_today_24px" />
+
+            <com.nightonke.boommenu.BoomMenuButton
+                android:id="@+id/bmb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
 
 </LinearLayout>
