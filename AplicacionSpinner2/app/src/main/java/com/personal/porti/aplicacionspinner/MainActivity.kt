@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (ContextCompat.checkSelfPermission(
+        if (ContextCompat.checkSelfPermission( //Solicito permisos de cámara y almacenamiento para poder colocar una imagen de perfil
                 this,
                 Manifest.permission.READ_EXTERNAL_STORAGE
             )
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        val boomMenu = findViewById<BoomMenuButton>(R.id.bmb)
+        val boomMenu = findViewById<BoomMenuButton>(R.id.bmb) //Añado el ícono de menú abajo a la izquierda
 
         boomMenu.buttonEnum = ButtonEnum.Ham
 
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
                     .normalText("Seleccionar foto")
                     .normalColor(Color.BLUE)
                     .normalTextColor(Color.WHITE)
-            )
+            ) //añado los iconos del menú
         }
 
         campoNombre = findViewById(R.id.campoNombre)
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
 
         imageView = findViewById(R.id.imgView)
 
-        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+".toRegex()
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+".toRegex() //expresión regular para validar el email
 
         val dMenu = findViewById<AutoCompleteTextView>(R.id.menuReal)
 
@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
 
         picturePath = ""
 
-        val type = arrayOf("Primaria", "Secundaria", "Bachillerato", "Formación Profesional")
+        val type = arrayOf("Primaria", "Secundaria", "Bachillerato", "Formación Profesional") //datos del spinner
 
         val mPickDateButton = findViewById<Button>(R.id.pick_date_button)
 
