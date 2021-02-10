@@ -16,6 +16,7 @@ class vistaFormulario : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vista_formulario)
+        supportActionBar?.title = "Detalles del alumno"
 
         val nombre = intent.getStringExtra("Nombre")
         val apellidos = intent.getStringExtra("Apellidos")

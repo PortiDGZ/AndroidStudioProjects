@@ -66,10 +66,16 @@ class MainActivity : AppCompatActivity() {
             )
         } else {
         }
+
+
         val boomMenu = findViewById<BoomMenuButton>(R.id.bmb)
+
         boomMenu.buttonEnum = ButtonEnum.Ham
+
         boomMenu.piecePlaceEnum = PiecePlaceEnum.DOT_1
+
         boomMenu.buttonPlaceEnum = ButtonPlaceEnum.HAM_1
+
         for (i in 0 until boomMenu.buttonPlaceEnum.buttonNumber()) {
             boomMenu.addBuilder(
                 HamButton.Builder()
@@ -79,23 +85,43 @@ class MainActivity : AppCompatActivity() {
                     .normalTextColor(Color.WHITE)
             )
         }
+
         campoNombre = findViewById(R.id.campoNombre)
+
         campoApellidos = findViewById(R.id.campoApellidos)
+
         campoEdad = findViewById(R.id.campoEdad)
+
         campoEmail = findViewById(R.id.campoEmail)
+
         imageView = findViewById(R.id.imgView)
+
         val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+".toRegex()
+
         val dMenu = findViewById<AutoCompleteTextView>(R.id.menuReal)
+
         parentMenu = findViewById(R.id.menuDrop)
+
         picturePath = ""
+
         val type = arrayOf("Primaria", "Secundaria", "Bachillerato", "Formación Profesional")
+
         val mPickDateButton = findViewById<Button>(R.id.pick_date_button)
+
         val materialDateBuilder: MaterialDatePicker.Builder<*> = MaterialDatePicker.Builder.datePicker()
+
         materialDateBuilder.setTitleText("SELECCIONA UNA FECHA")
+
         materialDateBuilder.build()
+
         supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+
         supportActionBar!!.setDisplayShowCustomEnabled(true)
+
         supportActionBar!!.setCustomView(R.layout.custom_action_bar_layout)
+
+
+
         mPickDateButton.setOnClickListener {
 
             val c = Calendar.getInstance()
@@ -106,11 +132,13 @@ class MainActivity : AppCompatActivity() {
             dateDialog.datePicker.maxDate = Date().time
             dateDialog.show()
         }
+
         val adapter = ArrayAdapter(
             this,
             R.layout.dropdown_menu_popup_item,
             type,
         )
+
         dMenu.setAdapter(adapter)
 
         campoEmail.addTextChangedListener(object : TextWatcher {
@@ -119,7 +147,7 @@ class MainActivity : AppCompatActivity() {
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
-                validarCampos()
+
                 if (campoEmail.text.toString().isEmpty()) {
                     campoEmail.error = "Introduce un email"
                 } else {
@@ -135,6 +163,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
+                validarCampos()
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -221,8 +250,9 @@ class MainActivity : AppCompatActivity() {
         if (campoNombre.text.toString() != "" && campoApellidos.text.toString() != "" && campoEdad.text.toString() != "" && campoEmail.text.toString() != "" && campoEmail.error == null) {
 
             parentMenu.isEnabled = true
-        }
+        }else parentMenu.isEnabled = false
     }
+
     private val datePickerListener = OnDateSetListener { _, year, month, day ->
         val c: Calendar = Calendar.getInstance()
         c.set(Calendar.YEAR, year)
