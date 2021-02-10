@@ -13,6 +13,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.widget.*
 import androidx.appcompat.app.ActionBar
@@ -120,7 +121,8 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar!!.setCustomView(R.layout.custom_action_bar_layout)
 
-
+        campoNombre.filters = editTextAllowAlphabetsSymbols("")
+        campoApellidos.filters = editTextAllowAlphabetsSymbols("")
 
         mPickDateButton.setOnClickListener {
 
@@ -289,5 +291,9 @@ class MainActivity : AppCompatActivity() {
             picturePath = (columnIndex?.let { cursor.getString(it) } ?: cursor?.close()) as String
             imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
         }
+    }
+
+    fun editTextAllowAlphabetsSymbols(symbols:String):Array<InputFilter>{
+        return arrayOf(AlphabetsSymbolsInputFilter(symbols))
     }
 }
