@@ -12,6 +12,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.widget.*
 import androidx.appcompat.app.ActionBar
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (ContextCompat.checkSelfPermission(
+        if (ContextCompat.checkSelfPermission( //Solicito permisos de cámara y almacenamiento para poder colocar una imagen de perfil
                 this,
                 Manifest.permission.READ_EXTERNAL_STORAGE
             )
@@ -67,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        val boomMenu = findViewById<BoomMenuButton>(R.id.bmb)
+        val boomMenu = findViewById<BoomMenuButton>(R.id.bmb) //Añado el ícono de menú abajo a la izquierda
 
         boomMenu.buttonEnum = ButtonEnum.Ham
 
@@ -82,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                     .normalText("Seleccionar foto")
                     .normalColor(Color.BLUE)
                     .normalTextColor(Color.WHITE)
-            )
+            ) //añado los iconos del menú
         }
 
         campoNombre = findViewById(R.id.campoNombre)
@@ -95,7 +96,7 @@ class MainActivity : AppCompatActivity() {
 
         imageView = findViewById(R.id.imgView)
 
-        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+".toRegex()
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+".toRegex() //expresión regular para validar el email
 
         val dMenu = findViewById<AutoCompleteTextView>(R.id.menuReal)
 
@@ -103,7 +104,7 @@ class MainActivity : AppCompatActivity() {
 
         picturePath = ""
 
-        val type = arrayOf("Primaria", "Secundaria", "Bachillerato", "Formación Profesional")
+        val type = arrayOf("Primaria", "Secundaria", "Bachillerato", "Formación Profesional") //datos del spinner
 
         val mPickDateButton = findViewById<Button>(R.id.pick_date_button)
 
@@ -119,7 +120,8 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar!!.setCustomView(R.layout.custom_action_bar_layout)
 
-
+        campoNombre.filters = editTextAllowAlphabetsSymbols("")
+        campoApellidos.filters = editTextAllowAlphabetsSymbols("")
 
         mPickDateButton.setOnClickListener {
 
@@ -288,5 +290,9 @@ class MainActivity : AppCompatActivity() {
             picturePath = (columnIndex?.let { cursor.getString(it) } ?: cursor?.close()) as String
             imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
         }
+    }
+
+    fun editTextAllowAlphabetsSymbols(symbols:String):Array<InputFilter>{
+        return arrayOf(AlphabetsSymbolsInputFilter(symbols))
     }
 }
