@@ -6,10 +6,9 @@ import android.text.Spanned
 class AlphabetsSymbolsInputFilter(symbols:String) : InputFilter {
 
     private var mWordPattern: String
-    var mLetterPattern:String
+    var mLetterPattern:String = "[a-zA-Z.$symbols]"
 
     init {
-        mLetterPattern = "[a-zA-Z.$symbols ]"
         //mLetterPattern = "[a-zA-Z0-9.$symbols ]" // replace if alphanumeric
         mWordPattern = "$mLetterPattern+"
     }

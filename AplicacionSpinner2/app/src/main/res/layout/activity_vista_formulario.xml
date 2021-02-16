@@ -18,15 +18,14 @@
         <!-- Media -->
         <ImageView
             android:id="@+id/imagen"
-            android:layout_height="194dp"
             android:layout_width="match_parent"
+            android:layout_height="244dp"
             android:layout_weight="1"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/content_description_media"
             android:rotation="-90"
             android:scaleType="centerInside"
-            app:layout_constraintDimensionRatio="4:3"
-            android:contentDescription="@string/content_description_media"
-            />
+            app:layout_constraintDimensionRatio="4:3" />
 
         <LinearLayout
             android:layout_width="match_parent"

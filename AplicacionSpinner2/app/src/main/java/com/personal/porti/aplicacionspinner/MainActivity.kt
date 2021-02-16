@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
 
         val mPickDateButton = findViewById<Button>(R.id.pick_date_button)
 
-        val materialDateBuilder: MaterialDatePicker.Builder<*> = MaterialDatePicker.Builder.datePicker()
+        val materialDateBuilder: MaterialDatePicker.Builder<*> = MaterialDatePicker.Builder.datePicker() //calendario
 
         materialDateBuilder.setTitleText("SELECCIONA UNA FECHA")
 
@@ -121,8 +121,8 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar!!.setCustomView(R.layout.custom_action_bar_layout)
 
-        campoNombre.filters = editTextAllowAlphabetsSymbols("")
-        campoApellidos.filters = editTextAllowAlphabetsSymbols("")
+        campoNombre.filters = editTextAllowAlphabetsSymbols("") //filtro para solo usar letras en el nombre
+        campoApellidos.filters = editTextAllowAlphabetsSymbols("") //filtro para solo usar letras en los apellidos
 
         mPickDateButton.setOnClickListener {
 
@@ -133,16 +133,16 @@ class MainActivity : AppCompatActivity() {
             val dateDialog = DatePickerDialog(this, datePickerListener, mYear, mMonth, mDay)
             dateDialog.datePicker.maxDate = Date().time
             dateDialog.show()
-        }
+        }//listener para el calendario
 
         val adapter = ArrayAdapter(
             this,
             R.layout.dropdown_menu_popup_item,
             type,
-        )
+        ) //array adapter
 
         dMenu.setAdapter(adapter)
-
+        //validación de que todo está relleno
         campoEmail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(
@@ -205,7 +205,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable?) {}
         })
-
+        //Listener del spinner
         dMenu?.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             val intent = Intent(this@MainActivity, vistaFormulario::class.java).apply {
                 putExtra("Nombre", campoNombre.text.toString())
@@ -217,6 +217,7 @@ class MainActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+        //Listener del BoomMenu
         boomMenu.onBoomListener = object : OnBoomListener {
             override fun onClicked(index: Int, boomButton: BoomButton) {
                 val i = Intent(
@@ -247,7 +248,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
+    //función para validar los campos
     fun validarCampos() {
         if (campoNombre.text.toString() != "" && campoApellidos.text.toString() != "" && campoEdad.text.toString() != "" && campoEmail.text.toString() != "" && campoEmail.error == null) {
 
@@ -263,7 +264,7 @@ class MainActivity : AppCompatActivity() {
         SimpleDateFormat("dd MMM YYYY").format(c.time)
         campoEdad.setText(calcularEdad(c.timeInMillis).toString())
     }
-
+    //funcióon para calcular la edad (para arreglar)
     private fun calcularEdad(date: Long): Int {
         val dob = Calendar.getInstance() //dob = fecha de nacimiento
         dob.timeInMillis = date
@@ -274,7 +275,7 @@ class MainActivity : AppCompatActivity() {
         }
         return edad
     }
-
+        //función para cargar la imagen
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
@@ -292,8 +293,8 @@ class MainActivity : AppCompatActivity() {
             imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
         }
     }
-
-    fun editTextAllowAlphabetsSymbols(symbols:String):Array<InputFilter>{
+    //funcion que llama a la clase que se encarga de filtrar el nombre y apellidos
+    private fun editTextAllowAlphabetsSymbols(symbols:String):Array<InputFilter>{
         return arrayOf(AlphabetsSymbolsInputFilter(symbols))
     }
 }
